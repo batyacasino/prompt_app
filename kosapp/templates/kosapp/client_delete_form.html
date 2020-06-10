@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+	<form class="text-center border border-light p-5" action="{% url 'client_delete_url' pk=client.id %}" method="post">
+		<p class="h4 mb-4">Удаление клиента</p>
+		{% csrf_token %}
+
+		<h3>Вы уверены что хотите удалить клиента <b>"{{ client.claimant }}"</b> из базы данных?</h3>
+		<a href="{% url 'detail_client_url' client.id  %}">отменить</a>
+		<button type="submit" name="button" class="btn btn-danger">Да</button>
+
+	</form>
+
+{% endblock %}

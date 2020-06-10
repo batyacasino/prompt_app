@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+	<div class="container-fluid mt-4">
+		<ul class="list-group">
+		  <li class="list-group-item">Дата создания: <span>{{ client.date_creat }}</span></li>
+		  <li class="list-group-item">Истец: {{ client.claimant }}</li>
+		  <li class="list-group-item">дата рождения: {{ client.date_of_birth }}</li>		  
+		  <li class="list-group-item">Ответчик: {{ client.defendant }}</li>
+		  <li class="list-group-item">Адрес почты: {{ client.email }}</li>
+		  <li class="list-group-item">Пароль от почты: {{ client.email_password }}</li>
+		  <li class="list-group-item">Дата осмотра: {{ client.date_of_inspection }}</li>
+		  <li class="list-group-item">
+		  	<a href="https://passport.yandex.ru/auth/add" target="_blank" class="btn btn-warning">Почтовый ящик</a>
+		  	<a href="https://finombudsman.ru/about/" target="_blank" class="btn btn-success">finombudsman.ru</a>
+		  	<a href="https://www.mos-gorsud.ru/rs/lyublinskij/search" target="_blank" class="btn btn-info">mos-gorsud.ru</a>
+		  </li>
+		</ul>
+		
+	</div>
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+
+	<form class="text-center border border-light p-5" action="{% url 'client_update_url' %}" method="post">
+		<p class="h4 mb-4">зменить информацию о клиенте</p>
+		{% csrf_token %}
+			{% for field in form %}
+				<div class="form-group">
+					{% if field.errors %}
+						<div class="alert alert-danger">
+							{{ field.errors }}						
+						</div>
+					{% endif %}
+				</div>
+				{{ field }}
+			{% endfor %}
+
+		<button class="btn btn-info my-4 btn-block" type="submit">Изменить</button>
+
+	</form>
+
+{% endblock %}
