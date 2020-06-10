@@ -3,3 +3,5 @@ Django==3.0.7
 gunicorn==20.0.4
 psycopg2==2.8.4
 whitenoise==5.0.1
+yandex-pdd==0.12b0
+transliterate==1.10.2
