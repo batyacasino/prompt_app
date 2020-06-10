@@ -13,9 +13,9 @@ class ClientForm(forms.Form):
 	date_of_inspection = forms.DateField()
 
 	claimant.widget.attrs.update({'class':'form-control', 'placeholder':'Истец'})
-	date_of_birth.widget.attrs.update({'type':'date', 'class':'form-control', 'placeholder':'дата рождения: 2000-21-12'})
+	date_of_birth.widget.attrs.update({'type':'date', 'class':'form-control', 'placeholder':'дата рождения: 2000-12-21'})
 	defendant.widget.attrs.update({'class':'form-control', 'placeholder':'Ответчик'})
-	date_of_inspection.widget.attrs.update({'type':'date', 'class':'form-control', 'placeholder':'дата осмотра: 2000-21-12'})
+	date_of_inspection.widget.attrs.update({'type':'date', 'class':'form-control', 'placeholder':'дата осмотра: 2000-12-21'})
 
 	def save(self):
 		TOKEN = '6ZW2WUBW2JLIXHUD5NZYAVJAABCDYVYWVPIBI5OGTDGCO3TV3QFQ'
