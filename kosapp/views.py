@@ -1,13 +1,29 @@
 from django.shortcuts import render, redirect
+from django.http import HttpResponseRedirect
 from django.urls import reverse
-from .models import Client
+from .models import *
 from django.views.generic import View
+from django.core.files.storage import FileSystemStorage
 
-from .forms import ClientForm
+from .forms import *
 
 
 def index(request):
 	clients = Client.objects.all()
+	return render(request, 'kosapp/index.html', {"clients": clients,})
+
+
+def detail_client(request, pk):
+	client = Client.objects.get(id=pk)
+	files = ClientDocs.objects.filter(client_id=pk)
+	return render(request, 'kosapp/detail_client.html', {
+													"client": client, 
+													"files": files,
+												})
+
+def alldelete(request):
+	clients = Client.objects.all()
+	clients.delete()
 	return render(request, 'kosapp/index.html', {"clients": clients,})
 
 class AddClient(View):
@@ -22,30 +38,29 @@ class AddClient(View):
 			return render(request, 'kosapp/detail_client.html', {"client": new_client,})			
 		return render(request, 'kosapp/add_client.html', {"form": bound_form})
 
-def detail_client(request, pk):
-	client = Client.objects.get(id=pk)
-	return render(request, 'kosapp/detail_client.html', {
-													"client": client,
-												})
 
-class ClientUpdate(View):
+def upload(request):
+	context = {}
+	if request.method == 'POST':
+		uploaded_file = request.FILES['document']
+		fs = FileSystemStorage()
+		name = fs.save(uploaded_file.name, uploaded_file)
+		context['url'] = fs.url(name)
+	return render(request, 'kosapp/upload.html', context)
+
+
+class UploadDocs(View):
 	def get(self, request, pk):
 		client = Client.objects.get(id=pk)
-		bound_form = ClientForm(instance=client)
-		return render(request, 'kosapp/client_update_form.html', {"form": bound_form, 'client': client})
+		form = UploadDocsForm()
+		return render(request, 'kosapp/upload_docs.html', {"form": form, "client": client})
 
-class ClientDelete(View):
-	def get(self, request, pk):
+
+	def post(self, request, pk):
 		client = Client.objects.get(id=pk)
-		return render(request, 'kosapp/client_delete_form.html', {'client': client})
-
-		def post(self, request, pk):
-			client = Client.objects.get(id=pk)
-			client.delete()
-			clients = Client.objects.all()
-			return render(request, 'kosapp/index.html', {"clients": clients,})
-
-def alldelete(request):
-	clients = Client.objects.all()
-	clients.delete()
-	return render(request, 'kosapp/index.html', {"clients": clients,})
+		bound_form = UploadDocsForm(request.POST, request.FILES)
+		if bound_form.is_valid():
+			new_file = bound_form.save()
+			files = ClientDocs.objects.filter(client_id=pk)
+			return render(request, 'kosapp/detail_client.html', {"client": client, "files": files})			
+		return render(request, 'kosapp/upload_docs.html', {"form": bound_form, "client": client})
