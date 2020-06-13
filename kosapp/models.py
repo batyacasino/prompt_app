@@ -10,4 +10,13 @@ class Client(models.Model):
 	date_of_inspection = models.DateField()
 
 
+class ClientDocs(models.Model):
+	client_id = models.ForeignKey(Client, on_delete=models.CASCADE)
+	claimant = models.CharField(max_length=200)
+	document = models.FileField(upload_to='docs/pdfs/')
+
+	def __str__(self):
+		return self.claimant
+
+
 
