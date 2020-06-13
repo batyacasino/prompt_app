@@ -15,10 +15,8 @@ def index(request):
 
 def detail_client(request, pk):
 	client = Client.objects.get(id=pk)
-	files = ClientDocs.objects.filter(client_id=pk)
 	return render(request, 'kosapp/detail_client.html', {
-													"client": client, 
-													"files": files,
+													"client": client,
 												})
 
 def alldelete(request):
