@@ -10,6 +10,7 @@
 		  <li class="list-group-item">Адрес почты: <b>{{ client.email }}</b></li>
 		  <li class="list-group-item">Пароль от почты: <b>{{ client.email_password }}</b></li>
 		  <li class="list-group-item">Дата осмотра: <b>{{ client.date_of_inspection }}</b></li>
+'''
 		  {% if files %}
 			  <li class="list-group-item jumbotron">
 			  <a href="{% url 'upload_docs_url' client.id %}" class="btn btn-success mt-2"><i class="far fa-save fa-2x m-2"></i>Загрузить новый файл</a>
@@ -26,5 +27,6 @@
 			  </div>
 			  </li>
 		{% endif %}
+'''
 		</ul>		
 	</div>
