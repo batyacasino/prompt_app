@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+	<form class="text-center border border-light p-5" action="{% url 'upload_docs_url' client.id %}" method="post" enctype="multipart/form-data">
+		<p class="h4 mb-4">Загрузить документ</p>
+		{% csrf_token %}
+			<p><b>ID Клиента</b><br>
+			<input class="text-center" type="text" name="c_id" value="{{ client.id }}" readonly="readonly">
+			{% for field in form %}
+				<div class="md-form">
+					{% if field.errors %}
+						<div class="alert alert-danger">
+							{{ field.errors }}						
+						</div>
+					{% endif %}
+				</div>
+				{{ field }}
+			{% endfor %}
+
+		<button class="btn btn-info my-4 btn-block" type="submit">Добавить</button>
+{% endblock %}
